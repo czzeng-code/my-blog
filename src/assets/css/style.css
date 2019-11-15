@@ -1,0 +1,74 @@
+/* 风格样式设置 */
+.cz-title {
+	font-size: 18px;
+	font-weight: 700;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.cz-sub-title {
+	font-size: 16px;
+	font-weight: 500;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.cz-meta {
+	font-size: 12px;
+	color: #b4b4b4;
+}
+
+/* 主题设置 */
+.cz-primary-theme {
+	background-color: #009688;
+	color: #fff;
+}
+.cz-warning-theme {
+	background-color: #fb8c00;
+	color: #fff;
+}
+.cz-success-theme {
+	background-color: #4caf50;
+	color: #fff;
+}
+.cz-disable-theme {
+	background-color: #e0e0e0;
+	color: #fff;
+}
+
+/* 按钮 */
+.cz-btn {
+	border: none;
+	cursor: pointer;
+	margin: 5px;
+}
+.cz-btn-round {
+	border-radius: 20px;
+}
+.cz-btn-circle {
+	border-radius: 50%;
+}
+.cz-btn-normal {
+	width: 120px;
+	height: 35px;
+}
+.cz-btn-large {
+	width: 140px;
+	height: 45px;
+}
+
+/* 表单元素样式 */
+.cz-input-box {
+	display: block;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	height: 35px;
+}
+/* 阴影样式 */
+.cz-shadow {
+	box-shadow: 2px 5px 10px #aaa;
+}
+/* 头像 */
+.cz-avatar {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+}
