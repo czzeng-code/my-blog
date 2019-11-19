@@ -8,27 +8,27 @@
 			</div>
 			<div class="tab-box" v-show="show&&selected===0">
 				<div>
-					<label><input type="text" name="account" class="input-box" placeholder="手机号/邮箱" /></label>
+					<label><input type="text" class="input-box" placeholder="请输入手机号" v-model="userDto.mobile"/></label>
 				</div>
 				<div>
-					<label><input type="password" name="password" class="input-box" placeholder="密码" /></label>
+					<label><input type="password" class="input-box" placeholder="请输入密码" v-model="userDto.password"/></label>
 				</div>
 				<div>
-					<label><input type="submit" value="立即登录" class="btn" /></label>
+					<button class="cz-btn cz-btn-round cz-btn-normal" @click="signIn(userDto)" autofocus="autofocus">立即登录</button>
 				</div>
 			</div>
 			<div class="tab-box" v-show="show&&selected===1">
 				<div>
-					<label><input type="tel" name="account" class="input-box" placeholder="手机号/邮箱" /></label>
+					<label><input type="tel" name="account" class="input-box" placeholder="手机号/邮箱" v-model="userDto.mobile" /></label>
 				</div>
 				<div>
-					<label><input type="password" name="password" class="input-box" placeholder="密码" /></label>
+					<label><input type="password" name="password" class="input-box" placeholder="密码" v-model="userDto.password"/></label>
 				</div>
 				<div>
-					<label><input type="text" name="yanzhen" class="yanzhen" placeholder="验证码" /></label>
+					<label><input type="text" name="yanzheng" class="yanzheng" placeholder="验证码" /></label>
 				</div>
 				<div>
-					<label><button class="btn">立即注册</button></label>
+					<label><button @click="signUp(userDto)" class="btn">立即注册</button></label>
 				</div>
 			</div>
 		</div>
@@ -41,28 +41,59 @@ export default {
 		return {
 			isActive: true,
 			show: true,
-			selected: 0
+			selected: 0,
+			
+			userDto: {
+				mobile: '',
+				password: ''
+			}
 		};
 	},
-	created() {},
+	created() {
+		
+	},
 	methods: {
 		changeTab: function() {
 			this.isActive = !this.isActive;
 			this.selected = this.selected == 0 ? 1 : 0;
+		},
+		signIn: function(userDto) {
+			
+			this.axios.post('http://localhost:8080/api/user/sign-in', JSON.stringify(this.userDto)).then(response => {
+							alert(response.data.msg);
+							if (response.data.msg === '登录成功') {
+								//将后台的用户信息存入本地存储
+								localStorage.user = JSON.stringify(response.data.data);
+								//路由跳转到首页
+								this.$router.push('/');
+							}
+						});
+		},
+		signUp: function(userDto) {
+			
+			this.axios.post('http://localhost:8080/api/user/sign-up', JSON.stringify(this.userDto)).then(response => {
+				alert(response.data.msg);
+				if(response.data.msg === '注册成功') {
+					this.changeTab();
+				}
+			});
+			
+			
 		}
 	},
 	computed: {}
 };
 </script>
 
-<style>
+<style scoped="scoped">
 body {
+	
 	background-image: url('https://tinyurl.com/y67s8w7t');
 	background-size: calc(100%);
 }
 .login-box {
 	width: 400px;
-	height: 300px;
+	height: 320px;
 	text-align: center;
 	position: relative;
 	bottom: -160px;
@@ -108,27 +139,6 @@ body {
 	padding-left: 10px;
 	margin: 20px;
 }
-.btn {
-	width: 73%;
-	height: 33px;
-	margin: 0 auto;
-	border: none;
-	outline: none;
-	border-radius: 3px;
-	background-color: rgb(250, 122, 32);
-	color: #ffffff;
-	box-shadow: 2px 5px 10px #aaa;
-	margin-top: 35px;
-	cursor: pointer;
-}
-.btn-sign {
-	width: 120px;
-	height: 30px;
-	outline: none;
-	border: none;
-	text-align: center;
-	font-size: 14px;
-	border-radius: 20px;
-	cursor: pointer;
-}
+
+
 </style>

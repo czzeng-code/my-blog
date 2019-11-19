@@ -72,3 +72,18 @@
 	height: 35px;
 	border-radius: 50%;
 }
+/* 导航 */
+.cz-list {
+	display: inline-block;
+	line-height: 70px;
+}
+
+.cz-list li {
+	display: inline-block;
+
+}
+
+/* 超链接样式 */
+.cz-list li a {
+	color: #eee;
+}

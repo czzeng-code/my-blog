@@ -1,28 +1,35 @@
 <template>
 	<div>
-		<div class="nav-bar main-color">
-			<div class="container">
-				<ul class="nav">
+		<div class="nav-bar main-color cz-fx-between">
+			<div class="cz-list">
 					<li class="nav-item">
 						<router-link to = "/">主页</router-link>
-					</li>
-					<li class="nav-item">
-						<router-link to = "/p">文章</router-link>
 					</li>
 					<li class="nav-item">
 						<router-link to = "/c">专题</router-link>
 					</li>
 					<li class="nav-item">
-						<router-link to = "/u">作者</router-link>
+						<router-link to = "/p">文章</router-link>
 					</li>
 					<li class="nav-item">
-						<router-link to = "/sign">登录</router-link>
+						<router-link to = "/u">作者</router-link>
 					</li>
+			</div>
+			<div class="cz-df-right">
+				<ul v-if="!this.user">
+					<li class="cz-success-theme"><router-link to = "/sign">登录</router-link></li>
+				</ul>
+				<ul>
+					<li v-if="this.user" class="cz-df-right">
+						<router-link to="/user"><img :src="user.avatar" class="cz-avatar"></router-link>
+					</li>
+				</ul>
+				<ul v-if="this.user">
+					<li><button class="cz-btn cz-warning-theme cz-btn-round" @click="logout">退出</button></li>
 				</ul>
 			</div>
 		</div>
-		
-		<router-view class = "main" />
+		<router-view class="cz-container"></router-view>>
 		<footer></footer>
 	</div>
 	
@@ -32,14 +39,17 @@
 	export default {
 		data() {
 			return {
-				
-			}
+				user: JSON.parse(localStorage.getItem('user'))
+			};
 		},
 		created() {
 			
 		},
 		methods: {
-			
+			logout() {
+				this.user = null;
+				localStorage.clear();
+			}
 		},
 		computed: {
 			
