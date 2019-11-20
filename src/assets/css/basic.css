@@ -15,8 +15,8 @@ u {
 }
 /*--------------- 布局设置 ------------------*/
 .cz-container {
-	width: 80%;
-	height: 0 auto;
+	width: 90%;
+	margin: 0 auto;
 }
 .cz-row {
 	display: flex;
@@ -30,6 +30,9 @@ u {
 }
 .cz-col-6 {
 	flex: 1 1 50%;
+}
+.cz-col-5 {
+	flex: 1 1 41.7%;
 }
 .cz-col-4 {
 	flex: 1 1 33.3%;
@@ -66,7 +69,7 @@ u {
 }
 
 /* flex横向布局的对齐,横向均匀分布，纵向居中 */
-.xu-fx-around {
+.cz-fx-around {
 	justify-content: space-around;
 }
 
