@@ -4,6 +4,9 @@ import router from './router'
 //引入axios
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+//引用全局数据文件
+import global_ from '@/util/Global'
+Vue.prototype.GLOBAL = global_
 
 //使用
 Vue.use(VueAxios, axios)

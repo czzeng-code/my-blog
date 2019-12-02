@@ -6,7 +6,7 @@
 					
 						<div class="left">
 							<p class="cz-title">{{ article.title }}</p>
-							<p class="cz-sub-title content">{{ article.content}}</p>
+							<p class="cz-sub-title content">{{ article.summary}}</p>
 							<div class="cz-meta meta cz-fx-around"> 
 								<span>{{ article.nickname}}</span>
 								<span><i class="iconfont i-like">&#xe627;</i>{{ article.likes}}</span>
@@ -37,7 +37,7 @@ export default {
 		};
 	},
 	created() {
-		this.axios.get('http://localhost:8080/api/article/hot').then(res => {
+		this.axios.get('http://localhost:8080/api/article').then(res => {
 			console.log(res.data.data);
 			this.articles = res.data.data;
 			for (var i = 0; i < this.articles.length; i++) {

@@ -15,6 +15,11 @@
 					<span class="cz-black-font">密码:</span>
 					<label><input type="password" class="input-box" placeholder="请输入密码" v-model="userDto.password" /></label>
 				</div>
+				<div class="cz-fx-start">
+					<span class="cz-black-font" style="margin-left: 24px;">验证码:</span>
+					<label><input type="text" name="yanzheng" class="yanzheng" placeholder="验证码" v-model="userDto.code" /></label>
+					<img class="verify" @click.prevent="refresh" ref='codeImg' />
+				</div>
 				<div><button class="cz-btn cz-btn-round cz-btn-normal cz-blue-theme" @click="signIn(userDto)" autofocus="autofocus">立即登录</button></div>
 			</div>
 			<div class="tab-box" v-show="show && selected === 1">
@@ -48,27 +53,56 @@ export default {
 
 			userDto: {
 				mobile: '',
-				password: ''
-			}
+				password: '',
+				code: ''
+			},
+			token: ''
 		};
 	},
-	created() {},
+	created() {
+		this.axios.get(this.GLOBAL.baseUrl + '/code', { responseType: 'blob' }).then(res => {
+			console.log(res);
+			var img = this.$refs.codeImg;
+			let url = window.URL.createObjectURL(res.data);
+			
+			img.src = url;
+			console.log(res.headers);
+			this.token = res.headers['access-token'];
+			console.log(this.token);
+		});
+	},
 	methods: {
 		changeTab: function() {
 			this.isActive = !this.isActive;
 			this.selected = this.selected == 0 ? 1 : 0;
 		},
 		signIn: function(userDto) {
-			this.axios.post('http://localhost:8080/api/user/sign-in', JSON.stringify(this.userDto)).then(response => {
-				alert(response.data.msg);
-				if (response.data.msg === '登录成功') {
-					//将后台的用户信息存入本地存储
-					localStorage.user = JSON.stringify(response.data.data);
-					//路由跳转到首页
+			this.axios({
+					method: 'post',
+					url: this.GLOBAL.baseUrl + '/user/sign-in',
+					data: JSON.stringify(this.userDto),
+					headers: {
+						'Access-Token': this.token
+					}
+			}).then(res => {
+				if (res.data.msg == '成功') {
+					alert('登录成功');
+					localStorage.setItem('user', JSON.stringify(res.data.data));
 					this.$router.push('/');
+				} else {
+					alert(res.data.msg);
+					this.userDto.code = '';
 				}
 			});
 		},
+		refresh() {
+					this.axios.get(this.GLOBAL.baseUrl + '/code', { responseType: 'blob' }).then(res => {
+						console.log(res);
+						var img = this.$refs.codeImg;
+						let url = window.URL.createObjectURL(res.data);
+						img.src = url;
+					});
+				},
 		signUp: function(userDto) {
 			this.axios.post('http://localhost:8080/api/user/sign-up', JSON.stringify(this.userDto)).then(response => {
 				alert(response.data.msg);
@@ -157,6 +191,13 @@ h2 {
 	color: #333;
 	padding-left: 10px;
 	margin: 30px;
-	align-content: ;
+}
+.verify {
+	flex: 0 0 20%;
+	height: 25px;
+	width: 10px;
+}
+.verify:hover {
+	cursor: pointer;
 }
 </style>
