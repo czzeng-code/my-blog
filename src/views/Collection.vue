@@ -2,7 +2,7 @@
 	<div>
 		<div class="cz-row">
 			<div v-for="(item, index) in topics" :key="index" class="cz-col-4 cz-fx-center">
-				<div class="card">
+				<div class="card cz-shadow">
 					<div class="card-left">
 						<img :src="item.logo"/>
 					</div>
@@ -28,7 +28,7 @@ export default {
 		return {
 			topics: [],
 			currentPage: 1,
-			count: 6
+			count: 9
 		};
 	},
 	created() {
@@ -40,7 +40,6 @@ export default {
 				}
 			})
 			.then(res => {
-				console.log(res.data.data.length);
 				this.topics = res.data.data;
 			});
 	},
@@ -55,13 +54,11 @@ export default {
 					}
 				})
 				.then(res => {
-					console.log(res.data.data.length);
 					let temp = [];
 					temp = res.data.data;
 					for (var i = 0; i < temp.length; i++) {
 						this.topics.splice(this.currentPage * this.count, 0, temp[i]);
 					}
-					console.log(this.topics.length);
 				});
 		},
 		go(page) {
@@ -78,7 +75,7 @@ export default {
 		border: 1px dashed rgb(122, 150, 234);
 		border-radius: 10px;
 		margin-right: 20px;
-		margin-top: 20px;
+		margin-top: 40px;
 	}
 	.card-right {
 		margin-left: 20px;

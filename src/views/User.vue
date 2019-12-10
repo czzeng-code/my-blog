@@ -2,7 +2,7 @@
 	<div>
 		<div class="cz-row">
 			<div v-for="(item, index) in users" :key="index" class="cz-col-4">
-				<div class="card">
+				<div class="card cz-shadow">
 					<div class="card-head">
 						<p class="cz-title">{{item.nickname}}</p>
 						<router-link :to="{ path: '/user/' + item.id }">
@@ -39,7 +39,7 @@ export default {
 				}
 			})
 			.then(res => {
-				console.log(res.data.data.length);
+				// console.log(res.data.data.length);
 				this.users = res.data.data;
 			});
 	},
@@ -72,13 +72,11 @@ export default {
 </script>
 
 <style scoped>
-	.cz-container {
-		margin-top: 50px;
-	}
+
 	.card {
 		width: 90%;
 		height: 300px;
-		
+		margin-top: 60px;
 		margin-bottom: 50px;
 		padding: 20px;
 		border: 1px dashed rgb(122, 150, 234);

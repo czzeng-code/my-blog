@@ -1,7 +1,7 @@
 <template>
 	<div class="full">
 		<h2><router-link to="/">主页</router-link></h2>
-		<div class="login-box">
+		<div class="login-box cz-shadow">
 			<div class="tab">
 				<span class="tab-item" :class="{ active: isActive }" @click="changeTab">登录</span>
 				<span class="tab-item" :class="{ active: !isActive }" @click="changeTab">注册</span>
@@ -61,7 +61,6 @@ export default {
 	},
 	created() {
 		this.axios.get(this.GLOBAL.baseUrl + '/code', { responseType: 'blob' }).then(res => {
-			console.log(res);
 			var img = this.$refs.codeImg;
 			let url = window.URL.createObjectURL(res.data);
 			

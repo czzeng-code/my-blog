@@ -12,6 +12,10 @@ import UserFans from '@/views/UserFans.vue'
 import UserFollows from '@/views/UserFollows.vue'
 import Sign from '@/views/Sign.vue'
 
+import Search from '@/views/Search.vue'
+import SearchUser from '@/views/SearchUser.vue'
+import SearchTopic from '@/views/SearchTopic.vue'
+import SearchArticle from '@/views/SearchArticle.vue'
 
 Vue.use(VueRouter)
 
@@ -31,20 +35,44 @@ const routes = [{
 				component: Collection
 			},
 			{
+				path: 'c/:id',
+				component: CollectionDetail
+			},
+			{
 				path: 'p',
 				component:Article
 			},
 			{
-				path:'u',
+				path: 'p/:id',
+				component: ArticleDetail
+			},
+			{
+				path:'users',
 				component:User,
-				children:[
+			},
+			{
+				path: 'user/:id',
+				component: UserDetail
+			},
+			{
+				path: 'search',
+				component: Search,
+				children: [
 					{
-						path: 'follow',
-						component: UserFollows
+						path:'/',
+						redirect: 'article'
 					},
 					{
-						path:'fans',
-						component:UserFans
+						path: 'article',
+						component: SearchArticle
+					},
+					{
+						path: 'topic',
+						component: SearchTopic
+					},
+					{
+						path: 'user',
+						component: SearchUser
 					}
 				]
 			}

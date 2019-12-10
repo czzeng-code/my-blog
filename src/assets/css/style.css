@@ -54,6 +54,10 @@
 .cz-btn-circle {
 	border-radius: 50%;
 }
+.cz-btn-small {
+	width: 60px;
+	height: 30px;
+}
 .cz-btn-normal {
 	width: 120px;
 	height: 35px;
@@ -62,11 +66,23 @@
 	width: 140px;
 	height: 45px;
 }
-
+.btn-follow {
+	background-color: #42c02e;
+	font-weight: 400;
+	font-size: 15px;
+	color: #fff;
+	padding: 5px 0;
+	width: 80px;
+	height: 30px;
+	border-radius: 40px;
+	display: inline-block;
+	text-align: center;
+}
 /* 表单元素样式 */
 .cz-input-box {
 	display: block;
-	border: 1px solid #eee;
+	/* width: 90%; */
+	border: 1px solid darkcyan;
 	border-radius: 5px;
 	height: 35px;
 }
@@ -76,8 +92,8 @@
 }
 /* 头像 */
 .cz-avatar {
-	width: 35px;
-	height: 35px;
+	width: 40px;
+	height: 40px;
 	border-radius: 50%;
 }
 /* 导航 */
@@ -95,4 +111,42 @@
 /* 超链接样式 */
 .cz-list li a {
 	color: #eee;
+}
+
+/* 文章样式 */
+.media-wraaper {
+	display: flex;
+	min-height: 120px;
+	height: 180px;
+	margin: 10px;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.media-left {
+	flex: 1 1 18%;
+	text-align: center;
+	margin-right: 15px;
+}
+
+.media-middle {
+	flex: 1 1 60%;
+	margin-right: 15px;
+}
+
+.media-right {
+	flex: 1 1 22%;
+	height: 100%;
+}
+
+.media-middle  > a {
+	color: #FB8C00;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.media-right img {
+	width: 95%;
+	height: 80%;
+	border-radius: 10px;
 }
