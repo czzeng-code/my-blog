@@ -1,5 +1,5 @@
 <template>
-	<h2>粉丝</h2>
+	<h2>粉丝</h2>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 </template>
 
 <script>

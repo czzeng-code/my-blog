@@ -75,7 +75,7 @@ export default {
 		border: 1px dashed rgb(122, 150, 234);
 		border-radius: 10px;
 		margin-right: 20px;
-		margin-top: 40px;
+		/* margin-top: 40px; */
 	}
 	.card-right {
 		margin-left: 20px;

@@ -100,6 +100,7 @@ export default {
 						var img = this.$refs.codeImg;
 						let url = window.URL.createObjectURL(res.data);
 						img.src = url;
+						this.token = res.headers['access-token'];
 					});
 				},
 		signUp: function(userDto) {

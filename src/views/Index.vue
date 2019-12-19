@@ -1,6 +1,6 @@
 	<template>
 	<div>
-		<div class="cz-container">
+		<div class="container">
 			<div class="cz-col-8">
 				<div class="card cz-shadow" v-for="(article, index) in articles" :key="index">
 					<div class="left">
@@ -76,7 +76,8 @@
 							<p class="cz-meta">{{ item.fans }}个粉丝</p>
 							<p class="cz-meta">写了{{ item.articles }}篇文章</p>
 						</div>
-						<div class="cz-fx-right"><button class="cz-btn btn-follow link"><i class="iconfont">&#xe644;</i>关注</button></div>
+						<div class="cz-fx-right"><button class="cz-btn btn-follow link" ref="btn-f" @click="follow(item.id)"><i class="iconfont">&#xe644;</i>关注</button></div>
+						<div class="cz-fx-right"><button class="cz-btn cz-btn-round link" ><i class="iconfont">&#xe687;</i>已关注</button></div>
 					</div>
 				</div>
 			</div>
@@ -88,7 +89,12 @@
 export default {
 	data() {
 		return {
-			articles: []
+			user: JSON.parse(localStorage.getItem('user')), 
+			articles: [],
+			userFollow: {
+				fromId: 0,
+				toId:0
+			}
 		};
 	},
 	created() {
@@ -108,7 +114,26 @@ export default {
 	methods: {
 		getImage(url) {
 			return 'https://images.weserv.nl/?url=' + url;
+		},
+		follow(id) {
+			this.userFollow.fromId = this.user.id;
+			this.userFollow.toId = id;
+			this.axios.get(this.GLOBAL.baseUrl + '/follow', {
+				params: {
+					fromId: this.userFollow.fromId,
+					toId: this.userFollow.toId
+				}
+			}).then(res => {
+				if(res.data.msg==='成功') {
+					alert("不能重复关注");
+				} else {
+					this.axios.post(this.GLOBAL.baseUrl + '/follow', this.userFollow).then(res => {
+						alert(res.data.msg);
+					})
+				}
+			})
 		}
+		
 		
 	},
 	computed: {}
@@ -120,7 +145,7 @@ export default {
 
 <style scoped>
 	  
-.cz-container {
+.container {
 	display: flex;
 }
 .cz-col-8 {
@@ -131,6 +156,7 @@ export default {
 	border: 1px solid #008b8b;
 	height: 0 auto;
 	border-radius: 10px;
+	margin-top: 10px;
 }
 .card {
 	height: auto;
@@ -141,6 +167,7 @@ export default {
 	border-radius: 10px;
 	display: flex;
 	margin-bottom: 20px;
+	margin-top: 10px;
 	border-bottom: 1px solid #f0f0f0;
 }
 .right {

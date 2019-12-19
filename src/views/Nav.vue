@@ -42,15 +42,16 @@
 				</ul>
 				<ul>
 					<li v-if="this.user" class="cz-df-right">
-						<router-link to="/user"><img :src="user.avatar" class="cz-avatar" /></router-link>
+						<router-link :to="{ path: '/user/' + user.id }"><img :src="user.avatar" class="cz-avatar" /></router-link>
 					</li>
 				</ul>
 				<ul v-if="this.user">
 					<li><button class="cz-btn cz-btn-round cz-btn-small" @click="logout">退出登录</button></li>
+					<li><button class="cz-btn setting"><router-link to="/setting"><i class="iconfont i-setting">&#xe864;</i></router-link></button></li>
 				</ul>
 			</div>
 		</div>
-		<router-view class="cz-container"></router-view>
+		<router-view class="cz-container" />
 
 		<footer></footer>
 	</div>
@@ -86,16 +87,20 @@ export default {
 </script>
 
 <style scoped>
+.cz-container {
+	margin-top: 80px;
+}
 .cz-avatar {
 	margin-top: 10px;
 	width: 45px;
 	height: 45px;
 }
 .nav-bar {
-	height: 60px;
-	width: 100%;
 	position: fixed;
-	top: 0px;
+	width: 100%;
+	top: 0;
+	z-index: 999;
+	height: 60px;
 }
 .nav-bar > .container {
 	height: 100%;
@@ -109,14 +114,13 @@ export default {
 	color: #fff;
 	display: flex;
 	justify-content: space-between;
-	align-items:  flex-end;
+	align-items: flex-end;
 }
 .nav-item {
 	list-style: none;
 	width: 80px;
 	font-size: 20px;
 	margin-right: 20px;
-	
 }
 a {
 	color: #fff;

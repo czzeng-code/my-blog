@@ -76,7 +76,7 @@ export default {
 	.card {
 		width: 90%;
 		height: 300px;
-		margin-top: 60px;
+		margin-top: 20px;
 		margin-bottom: 50px;
 		padding: 20px;
 		border: 1px dashed rgb(122, 150, 234);

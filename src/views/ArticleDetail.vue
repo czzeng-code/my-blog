@@ -22,10 +22,11 @@
 					</p>
 					<p>{{ item.comment.content }}</p>
 				</div>
+				<div><button class="cz-btn cz-btn-normal cz-btn-round delete" v-if="user.id === item.comment.userId" @click="deleteComment(item.comment.id)">删除</button></div>
 			</div>
 			<div class="">
 				<input type="text" v-model="writeComment.content">
-				<button class="cz-btn cz-btn-round cz-btn-normal" @click="release">发布</button>
+				<button class="cz-btn cz-btn-round cz-btn-normal" @click="release" style="background-color: #42C02E;">发布</button>
 			</div>
 		</fieldset>
 	</div>
@@ -53,21 +54,34 @@ export default {
 		});
 
 		this.axios.get(this.GLOBAL.baseUrl + '/comment?articleId=' + id).then(res => {
-			// console.log(res.data.data);
+			console.log(res.data.data);
 			this.comment = res.data.data;
 		});
 	},
 	methods: {
 		//发评论
 		release() {
-			this.writeComment.articleId = this.$route.params.id;
-			this.writeComment.userId = this.user.id;
-			// alert(this.comment.content);
-			this.axios.post(this.GLOBAL.baseUrl + '/comment', this.writeComment)
-			.then(res => {
-				// alert(res.data.msg);
-				this.$router.go(0);
-			});
+			if(this.writeComment.content === '') {
+				alert("评论不能为空");
+			} else {
+				this.writeComment.articleId = this.$route.params.id;
+				this.writeComment.userId = this.user.id;
+				// alert(this.comment.content);
+				this.axios.post(this.GLOBAL.baseUrl + '/comment', this.writeComment)
+				.then(res => {
+					// alert(res.data.msg);
+					this.$router.go(0);
+				});
+			}
+		},
+		deleteComment(id) {
+			if(confirm("确定删除吗？")) {
+				this.axios.delete(this.GLOBAL.baseUrl + '/comment?id=' + id).then(res => {
+					// alert(res.data.msg);
+					this.$router.go(0);
+				});
+			}
+				
 		}
 	},
 	computed: {}
@@ -91,9 +105,11 @@ export default {
 .card-right {
 }
 .cz-btn-round {
-	background-color: #42C02E;
 	color: #FFFFFF;
 	height: 30px;
 	width: 50px;
+}
+.delete:hover {
+	background-color: red;
 }
 </style>

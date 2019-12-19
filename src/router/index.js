@@ -16,7 +16,7 @@ import Search from '@/views/Search.vue'
 import SearchUser from '@/views/SearchUser.vue'
 import SearchTopic from '@/views/SearchTopic.vue'
 import SearchArticle from '@/views/SearchArticle.vue'
-
+import Setting from '@/views/Setting.vue'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -55,6 +55,10 @@ const routes = [{
 				component: UserDetail
 			},
 			{
+				path: '/setting',
+				component: Setting
+			},
+			{
 				path: 'search',
 				component: Search,
 				children: [
@@ -82,6 +86,7 @@ const routes = [{
 		path: '/sign',
 		component: Sign
 	}
+	
 ]
 
 const router = new VueRouter({

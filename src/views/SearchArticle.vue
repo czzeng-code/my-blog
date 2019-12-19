@@ -65,7 +65,7 @@
 <style scoped>
 	.card {
 		display: flex;
-		margin-top: 15px;
+		margin-bottom: 15px;
 		border-bottom: 1px solid #AAAAAA;
 	}
 	.card-left {

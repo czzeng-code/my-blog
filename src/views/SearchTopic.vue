@@ -35,7 +35,7 @@
 					}
 				})
 				.then(res => {
-					console.log(res.data.data);
+					// console.log(res.data.data);
 					this.topics = res.data.data;
 				});
 		},
