@@ -2,13 +2,15 @@
 .cz-title {
 	font-size: 18px;
 	font-weight: 700;
-	color: rgba(0, 0, 0, 0.8);
+	/* color: rgba(0, 0, 0, 0.8); */
+	color: #eee;
 }
 
 .cz-sub-title {
 	font-size: 16px;
 	font-weight: 500;
-	color: rgba(0, 0, 0, 0.7);
+	/* color: rgba(0, 0, 0, 0.7); */
+	color: #eee;
 }
 
 .cz-meta {

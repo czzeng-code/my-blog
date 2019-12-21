@@ -76,8 +76,7 @@
 							<p class="cz-meta">{{ item.fans }}个粉丝</p>
 							<p class="cz-meta">写了{{ item.articles }}篇文章</p>
 						</div>
-						<div class="cz-fx-right"><button class="cz-btn btn-follow link" ref="btn-f" @click="follow(item.id)"><i class="iconfont">&#xe644;</i>关注</button></div>
-						<div class="cz-fx-right"><button class="cz-btn cz-btn-round link" ><i class="iconfont">&#xe687;</i>已关注</button></div>
+						<div class="cz-fx-right"><button class="cz-btn btn-follow link" @click="follow(item.id) , changeColor(index)" :style="{ background: color[index] ? '#eee' : '', color: color[index] ? 'black' : ''}" v-show="show"><i class="iconfont">&#xe644;</i><span v-show="color[index]">已</span>关注</button></div>
 					</div>
 				</div>
 			</div>
@@ -94,7 +93,9 @@ export default {
 			userFollow: {
 				fromId: 0,
 				toId:0
-			}
+			},
+			show: true,
+			color: []
 		};
 	},
 	created() {
@@ -126,20 +127,43 @@ export default {
 			}).then(res => {
 				if(res.data.msg==='成功') {
 					alert("不能重复关注");
+					this.unFollow(id);
+					
 				} else {
+					
 					this.axios.post(this.GLOBAL.baseUrl + '/follow', this.userFollow).then(res => {
 						alert(res.data.msg);
 					})
 				}
 			})
+		},
+		changeColor(index) {
+			if(this.color[index]) {
+				this.color.splice(index, 1, false);
+				
+			} else {
+				this.color.splice(index, 1, true);
+			}
+		},
+		unFollow(id) {
+			this.userFollow.fromId = this.user.id;
+			this.userFollow.toId = id;
+			this.axios.delete(this.GLOBAL.baseUrl + '/follow', {
+				params: {
+					fromId: this.userFollow.fromId,
+					toId: this.userFollow.toId
+				}
+			}).then(res => {
+				alert(res.data.msg);
+			})
 		}
+		
 		
 		
 	},
 	computed: {}
 };
 
-/*--------*/
 
 </script>
 
